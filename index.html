@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Phantom</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Додаємо мета-теги для PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Phantom">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/gbqTxpnh/phantom-wallet-icon.jpg">
+    <meta name="theme-color" content="#9584e4">
+    
     <style>
         * {
             margin: 0;
@@ -30,6 +38,7 @@
             --phantom-red: #ef4444;
             --phantom-border: rgba(255, 255, 255, 0.08);
             --phantom-nav-bg: rgba(31, 31, 31, 0.8);
+            --token-default-bg: #3a3a3a;
         }
         
         body {
@@ -81,7 +90,7 @@
         
         .account-name {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600; /* Жирніший текст */
         }
         
         .header-icons {
@@ -112,22 +121,22 @@
         
         /* Balance */
         .balance-section {
-            padding: 20px 20px 30px;
+            padding: 15px 20px 25px;
             text-align: center;
         }
         
         .balance-amount {
-            font-size: 48px;
-            font-weight: 300;
-            margin-bottom: 8px;
+            font-size: 42px; /* Трохи менший розмір для компактності */
+            font-weight: 600; /* Жирніший текст */
+            margin-bottom: 6px;
             letter-spacing: -1px;
             color: var(--phantom-text);
         }
         
         .balance-change {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--phantom-green);
-            font-weight: 500;
+            font-weight: 600; /* Жирніший текст */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,22 +147,23 @@
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 0 40px 40px;
+            gap: 12px; /* Менший проміжок */
+            padding: 0 30px 30px; /* Менші відступи */
         }
         
         .action-button {
             background: var(--phantom-card);
-            border-radius: 16px;
-            padding: 16px 0;
+            border-radius: 12px; /* Менш округлі кути для прямокутності */
+            padding: 14px 0; /* Змінено відступи для прямокутної форми */
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             transition: background-color 0.2s;
-            max-width: 80px;
+            max-width: 70px; /* Менша ширина для компактності */
+            min-width: 65px; /* Мінімальна ширина */
         }
         
         .action-button:hover {
@@ -161,18 +171,18 @@
         }
         
         .action-icon {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--phantom-purple);
         }
         
         .action-text {
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600; /* Жирніший текст */
             color: var(--phantom-text);
         }
         
@@ -180,14 +190,14 @@
         .tabs {
             display: flex;
             padding: 0 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Менший відступ */
         }
         
         .tab {
-            padding: 16px 0;
-            margin-right: 32px;
-            font-weight: 600;
-            font-size: 17px;
+            padding: 14px 0;
+            margin-right: 28px;
+            font-weight: 700; /* Жирніший текст */
+            font-size: 16px;
             position: relative;
             color: var(--phantom-text-muted);
             cursor: pointer;
@@ -199,7 +209,7 @@
         
         .tab-options {
             margin-left: auto;
-            padding: 16px 0;
+            padding: 14px 0;
         }
         
         .more-options {
@@ -210,37 +220,38 @@
         
         /* Token list */
         .token-list {
-            padding: 0 20px;
+            padding: 0 15px; /* Менші відступи */
         }
         
         .token-item {
             display: flex;
             align-items: center;
-            padding: 16px 0;
+            padding: 14px 0; /* Менші відступи */
             cursor: pointer;
             transition: background-color 0.2s;
             border-radius: 12px;
-            margin: 0 -8px;
+            margin: 0 -5px; /* Менший відступ */
         }
         
         .token-item:hover {
             background: rgba(255, 255, 255, 0.02);
-            padding-left: 8px;
-            padding-right: 8px;
+            padding-left: 5px;
+            padding-right: 5px;
         }
         
         .token-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
+            width: 38px; /* Трохи менший розмір */
+            height: 38px;
+            border-radius: 19px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            font-weight: 600;
-            font-size: 16px;
+            margin-right: 10px; /* Менший відступ */
+            font-weight: 700; /* Жирніший текст */
+            font-size: 15px;
             color: white;
             position: relative;
+            background: var(--token-default-bg); /* Сірий колір за замовчуванням */
         }
         
         .token-icon.solana {
@@ -259,20 +270,25 @@
             background: #8247e5;
         }
         
+        .token-icon.usdc {
+            background: #2775ca;
+        }
+        
         .token-info {
             flex: 1;
         }
         
         .token-name {
-            font-weight: 500;
-            font-size: 17px;
+            font-weight: 600; /* Жирніший текст */
+            font-size: 16px;
             margin-bottom: 2px;
             color: var(--phantom-text);
         }
         
         .token-amount {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--phantom-text-secondary);
+            font-weight: 500; /* Трохи жирніший */
         }
         
         .token-value {
@@ -280,15 +296,16 @@
         }
         
         .value-amount {
-            font-weight: 500;
-            font-size: 17px;
+            font-weight: 600; /* Жирніший текст */
+            font-size: 16px;
             margin-bottom: 2px;
             color: var(--phantom-text);
         }
         
         .value-change {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--phantom-green);
+            font-weight: 500; /* Трохи жирніший */
         }
         
         /* Bottom navigation */
@@ -297,9 +314,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 90px;
-            padding-bottom: env(safe-area-inset-bottom, 20px);
-            padding-top: 8px;
+            height: 80px; /* Менша висота */
+            padding-bottom: env(safe-area-inset-bottom, 15px);
+            padding-top: 6px;
             display: flex;
             justify-content: space-around;
             background: var(--phantom-nav-bg);
@@ -313,7 +330,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px 0;
+            padding: 6px 0;
             flex: 1;
             cursor: pointer;
             position: relative;
@@ -325,7 +342,7 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
+            width: 28px;
             height: 2px;
             background: var(--phantom-purple);
             border-radius: 2px;
@@ -338,20 +355,20 @@
         }
         
         .nav-icon {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 4px;
-            font-size: 24px;
+            margin-bottom: 3px;
+            font-size: 22px;
             color: var(--phantom-text-muted);
             transition: color 0.2s;
         }
         
         .nav-text {
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 600; /* Жирніший текст */
             color: var(--phantom-text-muted);
             transition: color 0.2s;
         }
@@ -393,6 +410,9 @@
         .refresh-icon {
             font-size: 18px;
             color: var(--phantom-purple);
+            width: 24px;
+            height: 24px;
+            background: url('https://i.ibb.co/JWjkfcV9/loading-icon.png') center/contain no-repeat;
         }
         
         .refreshing .refresh-indicator {
@@ -436,7 +456,7 @@
         
         .settings-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700; /* Жирніший текст */
         }
         
         .close-button {
@@ -465,7 +485,7 @@
         }
         
         .form-label {
-            font-weight: 600;
+            font-weight: 700; /* Жирніший текст */
             font-size: 17px;
             color: var(--phantom-text);
         }
@@ -495,7 +515,7 @@
             padding: 16px;
             border-radius: 12px;
             border: none;
-            font-weight: 600;
+            font-weight: 700; /* Жирніший текст */
             font-size: 17px;
             cursor: pointer;
         }
@@ -540,7 +560,7 @@
         <!-- Refresh indicator -->
         <div class="refresh-control" id="refresh-control">
             <div class="refresh-indicator">
-                <i class="refresh-icon fas fa-sync-alt"></i>
+                <div class="refresh-icon"></div>
             </div>
         </div>
         
@@ -623,16 +643,10 @@
                 </div>
                 
                 <div class="token-item">
-                    <div class="token-icon ethereum">
-                        <div style="width: 16px; height: 16px; background: #627eea; border-radius: 50%; position: relative;">
-                            <div style="position: absolute; bottom: -2px; right: -2px; width: 10px; height: 10px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <span style="font-size: 6px; color: white;">−</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="token-icon polygon">⬟</div>
                     <div class="token-info">
-                        <div class="token-name">Ethereum</div>
-                        <div class="token-amount">0 ETH</div>
+                        <div class="token-name">Polygon</div>
+                        <div class="token-amount">0 MATIC</div>
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
@@ -641,10 +655,10 @@
                 </div>
                 
                 <div class="token-item">
-                    <div class="token-icon polygon">⬟</div>
+                    <div class="token-icon usdc">$</div>
                     <div class="token-info">
-                        <div class="token-name">Polygon</div>
-                        <div class="token-amount">0 POL</div>
+                        <div class="token-name">USDC</div>
+                        <div class="token-amount">0 USDC</div>
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
@@ -658,15 +672,19 @@
         <div class="bottom-nav">
             <div class="nav-item active">
                 <div class="nav-icon"><i class="fas fa-home"></i></div>
+                <div class="nav-text">Home</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="nav-text">Swap</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon"><i class="fas fa-clock"></i></div>
+                <div class="nav-text">Activity</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon"><i class="fas fa-search"></i></div>
+                <div class="nav-text">Explore</div>
             </div>
         </div>
         
