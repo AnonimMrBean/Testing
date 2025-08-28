@@ -65,7 +65,7 @@
         
         /* Header */
         .header {
-            padding: 20px 15px 10px;
+            padding: 20px 15px 10px; /* Менший відступ з боків */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -105,10 +105,7 @@
             height: 24px;
             cursor: pointer;
             opacity: 0.8;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--phantom-text);
         }
         
         .header-icon:hover {
@@ -118,7 +115,6 @@
         .header-icon svg {
             width: 100%;
             height: 100%;
-            stroke: currentColor;
         }
         
         .main-content {
@@ -131,7 +127,7 @@
         
         /* Balance */
         .balance-section {
-            padding: 15px 15px 25px;
+            padding: 15px 15px 25px; /* Менший відступ з боків */
             text-align: center;
         }
         
@@ -158,13 +154,13 @@
             display: flex;
             justify-content: center;
             gap: 12px;
-            padding: 0 15px 30px;
+            padding: 0 15px 30px; /* Менший відступ з боків */
         }
         
         .action-button {
             background: var(--phantom-card);
             border-radius: 12px;
-            padding: 16px 0;
+            padding: 16px 0; /* Збільшений відступ */
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -172,7 +168,7 @@
             gap: 8px;
             cursor: pointer;
             transition: background-color 0.2s;
-            max-width: 80px;
+            max-width: 80px; /* Збільшена ширина */
             min-width: 75px;
         }
         
@@ -181,19 +177,17 @@
         }
         
         .action-icon {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
             color: var(--phantom-purple);
         }
         
         .action-icon svg {
             width: 100%;
             height: 100%;
-            stroke: currentColor;
         }
         
         .action-text {
@@ -205,7 +199,7 @@
         /* Tabs */
         .tabs {
             display: flex;
-            padding: 0 15px;
+            padding: 0 15px; /* Менший відступ з боків */
             margin-bottom: 15px;
         }
         
@@ -236,18 +230,18 @@
         
         /* Token list */
         .token-list {
-            padding: 0 10px;
+            padding: 0 15px; /* Менший відступ з боків */
         }
         
         .token-item {
             display: flex;
             align-items: center;
-            padding: 16px 12px;
+            padding: 16px 12px; /* Збільшений відступ */
             cursor: pointer;
             transition: background-color 0.2s;
             border-radius: 12px;
             margin-bottom: 8px;
-            background: var(--token-default-bg); /* Колір прямокутника #2b2b2b */
+            background: var(--token-default-bg);
         }
         
         .token-item:hover {
@@ -255,18 +249,13 @@
         }
         
         .token-icon {
-            width: 42px;
+            width: 42px; /* Збільшений розмір */
             height: 42px;
-            border-radius: 21px;
+            border-radius: 50%; /* Кругла форма */
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 12px;
-            font-weight: 700;
-            font-size: 15px;
-            color: white;
-            position: relative;
-            background: var(--token-default-bg);
             overflow: hidden;
         }
         
@@ -274,26 +263,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-        
-        .token-icon.solana {
-            background: linear-gradient(180deg, #9945FF 0%, #14F195 50%, #14F195 100%);
-        }
-        
-        .token-icon.bitcoin {
-            background: #f7931a;
-        }
-        
-        .token-icon.ethereum {
-            background: #627eea;
-        }
-        
-        .token-icon.polygon {
-            background: #8247e5;
-        }
-        
-        .token-icon.usdc {
-            background: #2775ca;
         }
         
         .token-info {
@@ -336,7 +305,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 70px;
+            height: 80px;
             padding-bottom: env(safe-area-inset-bottom, 15px);
             padding-top: 6px;
             display: flex;
@@ -383,7 +352,6 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 3px;
-            font-size: 22px;
             color: var(--phantom-text-muted);
             transition: color 0.2s;
         }
@@ -391,19 +359,9 @@
         .nav-icon svg {
             width: 100%;
             height: 100%;
-            stroke: currentColor;
         }
         
-        .nav-text {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--phantom-text-muted);
-            transition: color 0.2s;
-            display: none;
-        }
-        
-        .nav-item.active .nav-icon,
-        .nav-item.active .nav-text {
+        .nav-item.active .nav-icon {
             color: var(--phantom-purple);
         }
         
@@ -441,7 +399,7 @@
             width: 24px;
             height: 24px;
             background: url('https://i.ibb.co/JWjkfcV9/loading-icon.png') center/contain no-repeat;
-            filter: invert(1); /* Робить іконку білою */
+            filter: invert(1);
         }
         
         .refreshing .refresh-indicator {
@@ -583,7 +541,9 @@
             <div class="header-icons">
                 <div class="header-icon"><i class="fas fa-expand"></i></div>
                 <div class="header-icon" id="settings-nav">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-icon lucide-scan"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -608,7 +568,7 @@
             <div class="action-buttons">
                 <div class="action-button">
                     <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
                         </svg>
@@ -617,19 +577,25 @@
                 </div>
                 <div class="action-button">
                     <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>
+                        </svg>
                     </div>
                     <div class="action-text">Send</div>
                 </div>
                 <div class="action-button">
                     <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-repeat-icon lucide-repeat"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
                     </div>
                     <div class="action-text">Swap</div>
                 </div>
                 <div class="action-button">
                     <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign-icon lucide-dollar-sign"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
                     </div>
                     <div class="action-text">Buy</div>
                 </div>
@@ -719,26 +685,32 @@
         <!-- Bottom navigation -->
         <div class="bottom-nav">
             <div class="nav-item active">
-                <div class="nav-icon"><i class="fas fa-home"></i></div>
-                <div class="nav-text">Home</div>
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                </div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-repeat-icon lucide-repeat"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                    </svg>
                 </div>
-                <div class="nav-text">Swap</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/>
+                    </svg>
                 </div>
-                <div class="nav-text">Activity</div>
             </div>
             <div class="nav-item">
                 <div class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>
+                    </svg>
                 </div>
-                <div class="nav-text">Explore</div>
             </div>
         </div>
         
@@ -964,61 +936,57 @@
                     resetPullIndicator();
                 }
                 
+                mainContent.style.cursor = 'default';
                 resetPullState();
-                mainContent.style.cursor = 'auto';
             }
             
-            // Reset pull state
+            function updatePullIndicator(distance) {
+                const limitedPullDistance = Math.min(distance, maxPullDistance);
+                refreshControl.style.transform = `translateY(${limitedPullDistance}px)`;
+                
+                const opacity = Math.min(limitedPullDistance / 80, 1);
+                refreshIndicator.style.opacity = opacity;
+                
+                const scale = 0.8 + (Math.min(limitedPullDistance / maxPullDistance, 1) * 0.4);
+                refreshIndicator.style.transform = `scale(${scale})`;
+            }
+            
+            function resetPullIndicator() {
+                refreshControl.style.transition = 'transform 0.3s ease';
+                refreshControl.style.transform = 'translateY(0)';
+                
+                refreshIndicator.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                refreshIndicator.style.opacity = '0';
+                refreshIndicator.style.transform = 'scale(0.8)';
+            }
+            
             function resetPullState() {
                 startY = 0;
                 currentY = 0;
+                pullDistance = 0;
                 isTouch = false;
             }
             
-            // Update pull indicator
-            function updatePullIndicator(distance) {
-                const progress = Math.min(distance / maxPullDistance, 1);
-                const yPos = Math.min(distance * 0.5, maxPullDistance * 0.5);
-                
-                refreshControl.style.transform = `translateY(${yPos}px)`;
-                refreshIndicator.style.opacity = progress;
-                refreshIndicator.style.transform = `scale(${0.8 + progress * 0.2})`;
-                
-                // Rotate icon based on pull distance
-                const rotation = Math.min(progress * 360, 360);
-                refreshIndicator.querySelector('.refresh-icon').style.transform = `rotate(${rotation}deg)`;
-            }
-            
-            // Reset pull indicator
-            function resetPullIndicator() {
-                refreshControl.style.transition = 'transform 0.3s ease';
-                refreshIndicator.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                
-                refreshControl.style.transform = 'translateY(0)';
-                refreshIndicator.style.opacity = '0';
-                refreshIndicator.style.transform = 'scale(0.8)';
-                
-                refreshIndicator.querySelector('.refresh-icon').style.transform = 'rotate(0deg)';
-                
-                setTimeout(() => {
-                    refreshControl.style.transition = '';
-                    refreshIndicator.style.transition = '';
-                }, 300);
-            }
-            
-            // Start refresh
             function startRefresh() {
                 isRefreshing = true;
                 refreshControl.classList.add('refreshing');
                 
-                // Simulate API call
+                refreshIndicator.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                refreshIndicator.style.opacity = '1';
+                refreshIndicator.style.transform = 'scale(1)';
+                
                 setTimeout(() => {
                     completeRefresh();
                 }, 1500);
             }
             
-            // Complete refresh
             function completeRefresh() {
+                isRefreshing = false;
+                refreshControl.classList.remove('refreshing');
+                
+                resetPullIndicator();
+                
+                // Update refresh count
                 state.refreshCount++;
                 
                 // Check if we reached the refresh goal
@@ -1033,51 +1001,41 @@
                 
                 // Update UI
                 updateUI();
-                
-                // Reset refresh UI
-                isRefreshing = false;
-                refreshControl.classList.remove('refreshing');
-                resetPullIndicator();
             }
             
-            // Update UI
             function updateUI() {
                 // Update balance
                 balanceAmount.textContent = `$${state.balance.toFixed(2)}`;
                 
-                // Update SOL balance and value
+                // Update balance change
+                const change = state.balance - state.previousBalance;
+                const percentChange = state.previousBalance > 0 ? (change / state.previousBalance) * 100 : 0;
+                
+                changeAmount.textContent = change >= 0 ? `+$${change.toFixed(2)}` : `-$${Math.abs(change).toFixed(2)}`;
+                changePercent.textContent = percentChange >= 0 ? `+${percentChange.toFixed(2)}%` : `-${Math.abs(percentChange).toFixed(2)}%`;
+                
+                // Update SOL balance based on total balance
                 state.solBalance = state.balance / state.solPrice;
+                
+                // Update SOL display
                 solAmount.textContent = `${state.solBalance.toFixed(4)} SOL`;
-                solValue.textContent = `$${state.balance.toFixed(2)}`;
+                solValue.textContent = `$${(state.solBalance * state.solPrice).toFixed(2)}`;
                 
-                // Calculate change
-                const change = state.previousBalance > 0 ? state.balance - state.previousBalance : 0;
-                const changePercent = state.previousBalance > 0 ? (change / state.previousBalance) * 100 : 0;
+                // Calculate SOL change (simulated)
+                const solChangeValue = state.solBalance * state.solPrice * 0.02; // 2% change for demo
+                solChange.textContent = `+$${solChangeValue.toFixed(2)}`;
                 
-                // Update change display
-                if (change > 0) {
-                    changeAmount.textContent = `+$${change.toFixed(2)}`;
-                    changePercent.textContent = `+${changePercent.toFixed(2)}%`;
+                // Update color based on change
+                if (change >= 0) {
                     changeAmount.style.color = 'var(--phantom-green)';
                     changePercent.style.color = 'var(--phantom-green)';
-                } else if (change < 0) {
-                    changeAmount.textContent = `-$${Math.abs(change).toFixed(2)}`;
-                    changePercent.textContent = `-${Math.abs(changePercent).toFixed(2)}%`;
+                } else {
                     changeAmount.style.color = 'var(--phantom-red)';
                     changePercent.style.color = 'var(--phantom-red)';
-                } else {
-                    changeAmount.textContent = '$0.00';
-                    changePercent.textContent = '0.00%';
-                    changeAmount.style.color = 'var(--phantom-text-secondary)';
-                    changePercent.style.color = 'var(--phantom-text-secondary)';
                 }
-                
-                // Update SOL change
-                solChange.textContent = change > 0 ? `+$${change.toFixed(2)}` : '$0.00';
-                solChange.style.color = change > 0 ? 'var(--phantom-green)' : 'var(--phantom-text-secondary)';
             }
             
-            // Initialize app
+            // Initialize the app
             init();
         });
     </script>
