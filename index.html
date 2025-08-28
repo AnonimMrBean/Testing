@@ -28,6 +28,7 @@
         
         :root {
             --phantom-purple: #9584e4;
+            --phantom-purple-light: #a89edb;
             --phantom-purple-dark: #7c6bd9;
             --phantom-bg: #1f1f1f;
             --phantom-card: #2b2b2b;
@@ -137,9 +138,9 @@
         
         .balance-amount {
             font-size: 46px;
-            font-weight: 700;
+            font-weight: 550;
             margin-bottom: 6px;
-            letter-spacing: -1px;
+            letter-spacing: 4px;
             color: var(--phantom-text);
         }
         
@@ -157,14 +158,24 @@
             border-radius: 8px;
             font-weight: 600;
         }
-        
-        .change-badge.positive {
+
+        .change-badge-percent.positive {
             background-color: rgba(16, 185, 129, 0.2);
+            color: var(--phantom-green);
+            border-radius: 6px; 
+            padding: 1px 3px;    
+        }
+        .change-badge-amount.positive {
             color: var(--phantom-green);
         }
         
-        .change-badge.negative {
+        .change-badge-percent.negative {
             background-color: rgba(239, 68, 68, 0.2);
+            color: var(--phantom-red);
+            border-radius: 6px; 
+            padding: 1px 3px;  
+        }
+        .change-badge-amount.negative {
             color: var(--phantom-red);
         }
         
@@ -200,7 +211,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--phantom-purple);
+            color: var(--phantom-purple-light);
         }
         
         .action-icon svg {
@@ -211,9 +222,9 @@
         }
         
         .action-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--phantom-text);
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--phantom-text-secondary);
         }
         
         /* Tabs */
@@ -225,8 +236,8 @@
         
         .tab {
             padding: 14px 0;
-            margin-right: 28px;
-            font-weight: 800;
+            margin-right: 10px;
+            font-weight: 600;
             font-size: 17px;
             position: relative;
             color: var(--phantom-text-muted);
@@ -341,6 +352,12 @@
         .value-change {
             font-size: 14px;
             color: var(--phantom-green);
+            font-weight: 500;
+        }
+
+        .value-default-fake {
+            font-size: 14px;
+            color: var(--phantom-text-secondary);
             font-weight: 500;
         }
         
@@ -691,7 +708,7 @@
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
-                        <div class="value-change">$0.00</div>
+                        <div class="value-default-fake">$0.00</div>
                     </div>
                 </div>
                 
@@ -705,7 +722,7 @@
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
-                        <div class="value-change">$0.00</div>
+                        <div class="value-default-fake">$0.00</div>
                     </div>
                 </div>
                 
@@ -715,11 +732,11 @@
                     </div>
                     <div class="token-info">
                         <div class="token-name">Polygon</div>
-                        <div class="token-amount">0 MATIC</div>
+                        <div class="token-amount">0 POL</div>
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
-                        <div class="value-change">$0.00</div>
+                        <div class="value-default-fake">$0.00</div>
                     </div>
                 </div>
                 
@@ -733,7 +750,7 @@
                     </div>
                     <div class="token-value">
                         <div class="value-amount">$0.00</div>
-                        <div class="value-change">$0.00</div>
+                        <div class="value-default-fake">$0.00</div>
                     </div>
                 </div>
             </div>
@@ -1073,11 +1090,11 @@
                 
                 // Update change badges color
                 if (change >= 0) {
-                    changeAmount.className = 'change-badge positive';
-                    changePercent.className = 'change-badge positive';
+                    changeAmount.className = 'change-badge-amount positive';
+                    changePercent.className = 'change-badge-percent positive';
                 } else {
-                    changeAmount.className = 'change-badge negative';
-                    changePercent.className = 'change-badge negative';
+                    changeAmount.className = 'change-badge-amount negative';
+                    changePercent.className = 'change-badge-percent negative';
                 }
                 
                 // Update SOL balance based on total balance
