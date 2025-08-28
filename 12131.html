@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phantom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        :root {
+            --phantom-purple: #9584e4;
+            --phantom-purple-dark: #7c6bd9;
+            --phantom-bg: #1f1f1f;
+            --phantom-card: #2b2b2b;
+            --phantom-card-hover: #333333;
+            --phantom-text: #ffffff;
+            --phantom-text-secondary: #888888;
+            --phantom-text-muted: #666666;
+            --phantom-green: #10b981;
+            --phantom-red: #ef4444;
+            --phantom-border: rgba(255, 255, 255, 0.08);
+            --phantom-nav-bg: rgba(31, 31, 31, 0.8);
+        }
+        
+        body {
+            background-color: var(--phantom-bg);
+            color: var(--phantom-text);
+            line-height: 1.5;
+            overflow: hidden;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+        }
+        
+        .container {
+            max-width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            background: var(--phantom-bg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            padding: 20px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .account-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .account-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--phantom-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .account-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            opacity: 0.8;
+            font-size: 18px;
+        }
+        
+        .header-icon:hover {
+            opacity: 1;
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 90px;
+            position: relative;
+        }
+        
+        /* Balance */
+        .balance-section {
+            padding: 20px 20px 30px;
+            text-align: center;
+        }
+        
+        .balance-amount {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            color: var(--phantom-text);
+        }
+        
+        .balance-change {
+            font-size: 18px;
+            color: var(--phantom-green);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 40px 40px;
+        }
+        
+        .action-button {
+            background: var(--phantom-card);
+            border-radius: 16px;
+            padding: 16px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            max-width: 80px;
+        }
+        
+        .action-button:hover {
+            background: var(--phantom-card-hover);
+        }
+        
+        .action-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--phantom-purple);
+        }
+        
+        .action-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--phantom-text);
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 16px 0;
+            margin-right: 32px;
+            font-weight: 600;
+            font-size: 17px;
+            position: relative;
+            color: var(--phantom-text-muted);
+            cursor: pointer;
+        }
+        
+        .tab.active {
+            color: var(--phantom-text);
+        }
+        
+        .tab-options {
+            margin-left: auto;
+            padding: 16px 0;
+        }
+        
+        .more-options {
+            font-size: 20px;
+            color: var(--phantom-text-muted);
+            cursor: pointer;
+        }
+        
+        /* Token list */
+        .token-list {
+            padding: 0 20px;
+        }
+        
+        .token-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-radius: 12px;
+            margin: 0 -8px;
+        }
+        
+        .token-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        
+        .token-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            position: relative;
+        }
+        
+        .token-icon.solana {
+            background: linear-gradient(180deg, #9945FF 0%, #14F195 50%, #14F195 100%);
+        }
+        
+        .token-icon.bitcoin {
+            background: #f7931a;
+        }
+        
+        .token-icon.ethereum {
+            background: #627eea;
+        }
+        
+        .token-icon.polygon {
+            background: #8247e5;
+        }
+        
+        .token-info {
+            flex: 1;
+        }
+        
+        .token-name {
+            font-weight: 500;
+            font-size: 17px;
+            margin-bottom: 2px;
+            color: var(--phantom-text);
+        }
+        
+        .token-amount {
+            font-size: 15px;
+            color: var(--phantom-text-secondary);
+        }
+        
+        .token-value {
+            text-align: right;
+        }
+        
+        .value-amount {
+            font-weight: 500;
+            font-size: 17px;
+            margin-bottom: 2px;
+            color: var(--phantom-text);
+        }
+        
+        .value-change {
+            font-size: 15px;
+            color: var(--phantom-green);
+        }
+        
+        /* Bottom navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+            padding-top: 8px;
+            display: flex;
+            justify-content: space-around;
+            background: var(--phantom-nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0;
+            flex: 1;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: var(--phantom-purple);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .nav-item.active::before {
+            opacity: 1;
+        }
+        
+        .nav-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+            font-size: 24px;
+            color: var(--phantom-text-muted);
+            transition: color 0.2s;
+        }
+        
+        .nav-text {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--phantom-text-muted);
+            transition: color 0.2s;
+        }
+        
+        .nav-item.active .nav-icon,
+        .nav-item.active .nav-text {
+            color: var(--phantom-purple);
+        }
+        
+        /* Refresh control */
+        .refresh-control {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            z-index: 1001;
+            pointer-events: none;
+        }
+        
+        .refresh-indicator {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background: var(--phantom-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--phantom-border);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        
+        .refresh-icon {
+            font-size: 18px;
+            color: var(--phantom-purple);
+        }
+        
+        .refreshing .refresh-indicator {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .refreshing .refresh-icon {
+            animation: spin 1s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Settings panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--phantom-bg);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            padding: 40px 20px 20px;
+            overflow-y: auto;
+        }
+        
+        .settings-panel.open {
+            right: 0;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .settings-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .close-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: var(--phantom-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--phantom-text);
+            cursor: pointer;
+        }
+        
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--phantom-text);
+        }
+        
+        .form-input {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--phantom-border);
+            font-size: 17px;
+            background: var(--phantom-card);
+            color: var(--phantom-text);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--phantom-purple);
+        }
+        
+        .form-hint {
+            font-size: 15px;
+            color: var(--phantom-text-secondary);
+        }
+        
+        .btn-save {
+            background: var(--phantom-purple-dark);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        
+        .btn-save:hover {
+            background: var(--phantom-purple);
+        }
+        
+        /* Desktop support */
+        @media (min-width: 400px) {
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Mouse wheel support for desktop */
+        .main-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .main-content::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="account-info">
+                <div class="account-avatar">A</div>
+                <div class="account-name">acc</div>
+            </div>
+            <div class="header-icons">
+                <div class="header-icon"><i class="fas fa-expand"></i></div>
+                <div class="header-icon" id="settings-nav"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        
+        <!-- Refresh indicator -->
+        <div class="refresh-control" id="refresh-control">
+            <div class="refresh-indicator">
+                <i class="refresh-icon fas fa-sync-alt"></i>
+            </div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="main-content" id="main-content">
+            <section class="balance-section">
+                <div class="balance-amount" id="balance-amount">$0.00</div>
+                <div class="balance-change" id="balance-change">
+                    <span id="change-amount">+$0.00</span>
+                    <span id="change-percent">+0.00%</span>
+                </div>
+            </section>
+            
+            <div class="action-buttons">
+                <div class="action-button">
+                    <div class="action-icon"><i class="fas fa-qrcode"></i></div>
+                    <div class="action-text">Receive</div>
+                </div>
+                <div class="action-button">
+                    <div class="action-icon"><i class="fas fa-paper-plane"></i></div>
+                    <div class="action-text">Send</div>
+                </div>
+                <div class="action-button">
+                    <div class="action-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="action-text">Swap</div>
+                </div>
+                <div class="action-button">
+                    <div class="action-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="action-text">Buy</div>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active">Tokens</div>
+                <div class="tab">Collectibles</div>
+                <div class="tab-options">
+                    <div class="more-options">⋯</div>
+                </div>
+            </div>
+            
+            <div class="token-list">
+                <div class="token-item">
+                    <div class="token-icon solana">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #00d4ff, #5200ff, #ff6d00); border-radius: 3px; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 12px; height: 12px; background: white; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Solana</div>
+                        <div class="token-amount" id="sol-amount">0 SOL</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount" id="sol-value">$0.00</div>
+                        <div class="value-change" id="sol-change">$0.00</div>
+                    </div>
+                </div>
+                
+                <div class="token-item">
+                    <div class="token-icon bitcoin">₿</div>
+                    <div class="token-info">
+                        <div class="token-name">Bitcoin</div>
+                        <div class="token-amount">0 BTC</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$0.00</div>
+                        <div class="value-change">$0.00</div>
+                    </div>
+                </div>
+                
+                <div class="token-item">
+                    <div class="token-icon ethereum">Ξ</div>
+                    <div class="token-info">
+                        <div class="token-name">Ethereum</div>
+                        <div class="token-amount">0 ETH</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$0.00</div>
+                        <div class="value-change">$0.00</div>
+                    </div>
+                </div>
+                
+                <div class="token-item">
+                    <div class="token-icon ethereum">
+                        <div style="width: 16px; height: 16px; background: #627eea; border-radius: 50%; position: relative;">
+                            <div style="position: absolute; bottom: -2px; right: -2px; width: 10px; height: 10px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 6px; color: white;">−</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="token-info">
+                        <div class="token-name">Ethereum</div>
+                        <div class="token-amount">0 ETH</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$0.00</div>
+                        <div class="value-change">$0.00</div>
+                    </div>
+                </div>
+                
+                <div class="token-item">
+                    <div class="token-icon polygon">⬟</div>
+                    <div class="token-info">
+                        <div class="token-name">Polygon</div>
+                        <div class="token-amount">0 POL</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$0.00</div>
+                        <div class="value-change">$0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon"><i class="fas fa-home"></i></div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-exchange-alt"></i></div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-clock"></i></div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        
+        <!-- Settings panel -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-header">
+                <h2 class="settings-title">Balance Settings</h2>
+                <div class="close-button" id="close-settings"><i class="fas fa-times"></i></div>
+            </div>
+            
+            <div class="settings-form">
+                <div class="form-group">
+                    <label class="form-label" for="initial-balance">Initial Balance (USD)</label>
+                    <input type="number" class="form-input" id="initial-balance" step="0.01" min="0" value="0">
+                    <div class="form-hint">This will be your starting balance</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="sol-price">SOL Price (USD)</label>
+                    <input type="number" class="form-input" id="sol-price" step="0.01" min="0" value="200">
+                    <div class="form-hint">Current SOL price in USD</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="refresh-goal">Refresh Goal</label>
+                    <input type="number" class="form-input" id="refresh-goal" min="1" value="3">
+                    <div class="form-hint">How many refreshes before updating balance</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="new-balance">New Balance (USD)</label>
+                    <input type="number" class="form-input" id="new-balance" step="0.01" min="0" value="1000">
+                    <div class="form-hint">Balance after reaching refresh goal</div>
+                </div>
+                
+                <button class="btn-save" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // UI elements
+            const balanceAmount = document.getElementById('balance-amount');
+            const changeAmount = document.getElementById('change-amount');
+            const changePercent = document.getElementById('change-percent');
+            const solAmount = document.getElementById('sol-amount');
+            const solValue = document.getElementById('sol-value');
+            const solChange = document.getElementById('sol-change');
+            const mainContent = document.getElementById('main-content');
+            const refreshControl = document.getElementById('refresh-control');
+            const refreshIndicator = refreshControl.querySelector('.refresh-indicator');
+            const settingsPanel = document.getElementById('settings-panel');
+            const closeSettings = document.getElementById('close-settings');
+            const saveSettings = document.getElementById('save-settings');
+            const settingsNav = document.getElementById('settings-nav');
+            const initialBalanceInput = document.getElementById('initial-balance');
+            const solPriceInput = document.getElementById('sol-price');
+            const refreshGoalInput = document.getElementById('refresh-goal');
+            const newBalanceInput = document.getElementById('new-balance');
+            
+            // App state
+            let state = {
+                balance: 0,
+                solBalance: 0,
+                solPrice: 200,
+                refreshCount: 0,
+                refreshGoal: 3,
+                newBalance: 1000,
+                previousBalance: 0
+            };
+            
+            // Swipe variables
+            let startY = 0;
+            let currentY = 0;
+            let isRefreshing = false;
+            let pullDistance = 0;
+            let maxPullDistance = 120;
+            let isTouch = false;
+            
+            // Initialize
+            function init() {
+                // Load state from localStorage
+                const savedState = localStorage.getItem('phantomWalletState');
+                if (savedState) {
+                    state = JSON.parse(savedState);
+                }
+                
+                // Update UI
+                updateUI();
+                
+                // Setup swipe refresh for both touch and mouse
+                setupSwipeRefresh();
+                
+                // Desktop mouse wheel refresh (alternative)
+                setupDesktopRefresh();
+                
+                // Setup settings panel
+                setupSettingsPanel();
+            }
+            
+            // Setup swipe refresh
+            function setupSwipeRefresh() {
+                // Touch events
+                mainContent.addEventListener('touchstart', handleTouchStart, { passive: false });
+                mainContent.addEventListener('touchmove', handleTouchMove, { passive: false });
+                mainContent.addEventListener('touchend', handleTouchEnd);
+                
+                // Mouse events for desktop
+                mainContent.addEventListener('mousedown', handleMouseStart);
+                mainContent.addEventListener('mousemove', handleMouseMove);
+                mainContent.addEventListener('mouseup', handleMouseEnd);
+                mainContent.addEventListener('mouseleave', handleMouseEnd);
+            }
+            
+            function setupDesktopRefresh() {
+                // Wheel event for desktop alternative
+                mainContent.addEventListener('wheel', function(e) {
+                    if (mainContent.scrollTop === 0 && e.deltaY < 0 && !isRefreshing) {
+                        e.preventDefault();
+                        startRefresh();
+                    }
+                });
+            }
+            
+            function setupSettingsPanel() {
+                // Open settings panel
+                settingsNav.addEventListener('click', function() {
+                    settingsPanel.classList.add('open');
+                    // Populate inputs with current state
+                    initialBalanceInput.value = state.balance;
+                    solPriceInput.value = state.solPrice;
+                    refreshGoalInput.value = state.refreshGoal;
+                    newBalanceInput.value = state.newBalance;
+                });
+                
+                // Close settings panel
+                closeSettings.addEventListener('click', function() {
+                    settingsPanel.classList.remove('open');
+                });
+                
+                // Save settings
+                saveSettings.addEventListener('click', function() {
+                    state.balance = parseFloat(initialBalanceInput.value) || 0;
+                    state.solPrice = parseFloat(solPriceInput.value) || 200;
+                    state.refreshGoal = parseInt(refreshGoalInput.value) || 3;
+                    state.newBalance = parseFloat(newBalanceInput.value) || 1000;
+                    
+                    // Save to localStorage
+                    localStorage.setItem('phantomWalletState', JSON.stringify(state));
+                    
+                    // Update UI
+                    updateUI();
+                    
+                    // Close panel
+                    settingsPanel.classList.remove('open');
+                });
+            }
+            
+            // Touch handlers
+            function handleTouchStart(e) {
+                if (mainContent.scrollTop === 0) {
+                    isTouch = true;
+                    startY = e.touches[0].clientY;
+                    refreshControl.style.transition = 'none';
+                    refreshIndicator.style.transition = 'none';
+                }
+            }
+            
+            function handleTouchMove(e) {
+                if (!isTouch || startY === 0 || isRefreshing) return;
+                
+                currentY = e.touches[0].clientY;
+                pullDistance = currentY - startY;
+                
+                if (pullDistance > 0) {
+                    e.preventDefault();
+                    updatePullIndicator(pullDistance);
+                    
+                    if (pullDistance > 90 && !isRefreshing) {
+                        startRefresh();
+                    }
+                }
+            }
+            
+            function handleTouchEnd() {
+                if (!isRefreshing && pullDistance > 0) {
+                    resetPullIndicator();
+                }
+                
+                resetPullState();
+            }
+            
+            // Mouse handlers for desktop
+            function handleMouseStart(e) {
+                if (mainContent.scrollTop === 0) {
+                    isTouch = false;
+                    startY = e.clientY;
+                    refreshControl.style.transition = 'none';
+                    refreshIndicator.style.transition = 'none';
+                    mainContent.style.cursor = 'grabbing';
+                }
+            }
+            
+            function handleMouseMove(e) {
+                if (!isTouch && startY !== 0 && !isRefreshing && e.buttons === 1) {
+                    currentY = e.clientY;
+                    pullDistance = currentY - startY;
+                    
+                    if (pullDistance > 0) {
+                        e.preventDefault();
+                        updatePullIndicator(pullDistance);
+                        
+                        if (pullDistance > 90 && !isRefreshing) {
+                            startRefresh();
+                        }
+                    }
+                }
+            }
+            
+            function handleMouseEnd() {
+                if (!isRefreshing && pullDistance > 0) {
+                    resetPullIndicator();
+                }
+                
+                mainContent.style.cursor = 'default';
+                resetPullState();
+            }
+            
+            function updatePullIndicator(distance) {
+                const limitedPullDistance = Math.min(distance, maxPullDistance);
+                refreshControl.style.transform = `translateY(${limitedPullDistance}px)`;
+                
+                const opacity = Math.min(limitedPullDistance / 80, 1);
+                refreshIndicator.style.opacity = opacity;
+                
+                const scale = 0.8 + (Math.min(limitedPullDistance / maxPullDistance, 1) * 0.4);
+                refreshIndicator.style.transform = `scale(${scale})`;
+            }
+            
+            function resetPullIndicator() {
+                refreshControl.style.transition = 'transform 0.3s ease';
+                refreshControl.style.transform = 'translateY(0)';
+                
+                refreshIndicator.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                refreshIndicator.style.opacity = '0';
+                refreshIndicator.style.transform = 'scale(0.8)';
+            }
+            
+            function resetPullState() {
+                startY = 0;
+                currentY = 0;
+                pullDistance = 0;
+                isTouch = false;
+            }
+            
+            function startRefresh() {
+                isRefreshing = true;
+                refreshControl.classList.add('refreshing');
+                
+                refreshIndicator.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                refreshIndicator.style.opacity = '1';
+                refreshIndicator.style.transform = 'scale(1)';
+                
+                setTimeout(() => {
+                    completeRefresh();
+                }, 1500);
+            }
+            
+            function completeRefresh() {
+                isRefreshing = false;
+                refreshControl.classList.remove('refreshing');
+                
+                resetPullIndicator();
+                
+                // Update refresh count
+                state.refreshCount++;
+                
+                // Check if we reached the refresh goal
+                if (state.refreshCount >= state.refreshGoal) {
+                    state.previousBalance = state.balance;
+                    state.balance = state.newBalance;
+                    state.refreshCount = 0;
+                    
+                    // Save to localStorage
+                    localStorage.setItem('phantomWalletState', JSON.stringify(state));
+                }
+                
+                // Update UI
+                updateUI();
+            }
+            
+            function updateUI() {
+                // Update balance
+                balanceAmount.textContent = `$${state.balance.toFixed(2)}`;
+                
+                // Update balance change
+                const change = state.balance - state.previousBalance;
+                const percentChange = state.previousBalance > 0 ? (change / state.previousBalance) * 100 : 0;
+                
+                changeAmount.textContent = change >= 0 ? `+$${change.toFixed(2)}` : `-$${Math.abs(change).toFixed(2)}`;
+                changePercent.textContent = percentChange >= 0 ? `+${percentChange.toFixed(2)}%` : `-${Math.abs(percentChange).toFixed(2)}%`;
+                
+                // Update SOL balance based on total balance
+                state.solBalance = state.balance / state.solPrice;
+                
+                // Update SOL display
+                solAmount.textContent = `${state.solBalance.toFixed(4)} SOL`;
+                solValue.textContent = `$${(state.solBalance * state.solPrice).toFixed(2)}`;
+                
+                // Calculate SOL change (simulated)
+                const solChangeValue = state.solBalance * state.solPrice * 0.02; // 2% change for demo
+                solChange.textContent = `+$${solChangeValue.toFixed(2)}`;
+                
+                // Update color based on change
+                if (change >= 0) {
+                    changeAmount.style.color = 'var(--phantom-green)';
+                    changePercent.style.color = 'var(--phantom-green)';
+                } else {
+                    changeAmount.style.color = 'var(--phantom-red)';
+                    changePercent.style.color = 'var(--phantom-red)';
+                }
+            }
+            
+            // Initialize the app
+            init();
+        });
+    </script>
+</body>
+</html>
