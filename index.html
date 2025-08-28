@@ -12,6 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="Phantom">
     <link rel="apple-touch-icon" href="https://i.ibb.co/gbqTxpnh/phantom-wallet-icon.jpg">
     <meta name="theme-color" content="#9584e4">
+    <meta name="mobile-web-app-capable" content="yes">
     
     <style>
         * {
@@ -38,7 +39,7 @@
             --phantom-red: #ef4444;
             --phantom-border: rgba(255, 255, 255, 0.08);
             --phantom-nav-bg: rgba(31, 31, 31, 0.8);
-            --token-default-bg: #3a3a3a;
+            --token-default-bg: #2b2b2b;
         }
         
         body {
@@ -90,7 +91,7 @@
         
         .account-name {
             font-size: 16px;
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
         }
         
         .header-icons {
@@ -126,8 +127,8 @@
         }
         
         .balance-amount {
-            font-size: 42px; /* Трохи менший розмір для компактності */
-            font-weight: 600; /* Жирніший текст */
+            font-size: 42px;
+            font-weight: 600;
             margin-bottom: 6px;
             letter-spacing: -1px;
             color: var(--phantom-text);
@@ -136,7 +137,7 @@
         .balance-change {
             font-size: 16px;
             color: var(--phantom-green);
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -147,14 +148,14 @@
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px; /* Менший проміжок */
-            padding: 0 30px 30px; /* Менші відступи */
+            gap: 12px;
+            padding: 0 30px 30px;
         }
         
         .action-button {
             background: var(--phantom-card);
-            border-radius: 12px; /* Менш округлі кути для прямокутності */
-            padding: 14px 0; /* Змінено відступи для прямокутної форми */
+            border-radius: 12px;
+            padding: 14px 0;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -162,8 +163,8 @@
             gap: 6px;
             cursor: pointer;
             transition: background-color 0.2s;
-            max-width: 70px; /* Менша ширина для компактності */
-            min-width: 65px; /* Мінімальна ширина */
+            max-width: 70px;
+            min-width: 65px;
         }
         
         .action-button:hover {
@@ -182,7 +183,7 @@
         
         .action-text {
             font-size: 13px;
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
             color: var(--phantom-text);
         }
         
@@ -190,13 +191,13 @@
         .tabs {
             display: flex;
             padding: 0 20px;
-            margin-bottom: 15px; /* Менший відступ */
+            margin-bottom: 15px;
         }
         
         .tab {
             padding: 14px 0;
             margin-right: 28px;
-            font-weight: 700; /* Жирніший текст */
+            font-weight: 700;
             font-size: 16px;
             position: relative;
             color: var(--phantom-text-muted);
@@ -220,38 +221,37 @@
         
         /* Token list */
         .token-list {
-            padding: 0 15px; /* Менші відступи */
+            padding: 0 15px;
         }
         
         .token-item {
             display: flex;
             align-items: center;
-            padding: 14px 0; /* Менші відступи */
+            padding: 14px 12px;
             cursor: pointer;
             transition: background-color 0.2s;
             border-radius: 12px;
-            margin: 0 -5px; /* Менший відступ */
+            margin-bottom: 8px;
+            background: var(--token-default-bg); /* Колір прямокутника #2b2b2b */
         }
         
         .token-item:hover {
-            background: rgba(255, 255, 255, 0.02);
-            padding-left: 5px;
-            padding-right: 5px;
+            background: rgba(255, 255, 255, 0.05);
         }
         
         .token-icon {
-            width: 38px; /* Трохи менший розмір */
+            width: 38px;
             height: 38px;
             border-radius: 19px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px; /* Менший відступ */
-            font-weight: 700; /* Жирніший текст */
+            margin-right: 10px;
+            font-weight: 700;
             font-size: 15px;
             color: white;
             position: relative;
-            background: var(--token-default-bg); /* Сірий колір за замовчуванням */
+            background: var(--token-default-bg);
         }
         
         .token-icon.solana {
@@ -279,7 +279,7 @@
         }
         
         .token-name {
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
             font-size: 16px;
             margin-bottom: 2px;
             color: var(--phantom-text);
@@ -288,7 +288,7 @@
         .token-amount {
             font-size: 14px;
             color: var(--phantom-text-secondary);
-            font-weight: 500; /* Трохи жирніший */
+            font-weight: 500;
         }
         
         .token-value {
@@ -296,7 +296,7 @@
         }
         
         .value-amount {
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
             font-size: 16px;
             margin-bottom: 2px;
             color: var(--phantom-text);
@@ -305,7 +305,7 @@
         .value-change {
             font-size: 14px;
             color: var(--phantom-green);
-            font-weight: 500; /* Трохи жирніший */
+            font-weight: 500;
         }
         
         /* Bottom navigation */
@@ -314,7 +314,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 80px; /* Менша висота */
+            height: 80px;
             padding-bottom: env(safe-area-inset-bottom, 15px);
             padding-top: 6px;
             display: flex;
@@ -368,7 +368,7 @@
         
         .nav-text {
             font-size: 10px;
-            font-weight: 600; /* Жирніший текст */
+            font-weight: 600;
             color: var(--phantom-text-muted);
             transition: color 0.2s;
         }
@@ -390,6 +390,7 @@
             height: 60px;
             z-index: 1001;
             pointer-events: none;
+            transition: transform 0.3s ease;
         }
         
         .refresh-indicator {
@@ -408,11 +409,10 @@
         }
         
         .refresh-icon {
-            font-size: 18px;
-            color: var(--phantom-purple);
             width: 24px;
             height: 24px;
             background: url('https://i.ibb.co/JWjkfcV9/loading-icon.png') center/contain no-repeat;
+            filter: invert(1); /* Робить іконку білою */
         }
         
         .refreshing .refresh-indicator {
@@ -456,7 +456,7 @@
         
         .settings-title {
             font-size: 24px;
-            font-weight: 700; /* Жирніший текст */
+            font-weight: 700;
         }
         
         .close-button {
@@ -485,7 +485,7 @@
         }
         
         .form-label {
-            font-weight: 700; /* Жирніший текст */
+            font-weight: 700;
             font-size: 17px;
             color: var(--phantom-text);
         }
@@ -515,7 +515,7 @@
             padding: 16px;
             border-radius: 12px;
             border: none;
-            font-weight: 700; /* Жирніший текст */
+            font-weight: 700;
             font-size: 17px;
             cursor: pointer;
         }
