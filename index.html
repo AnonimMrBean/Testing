@@ -162,18 +162,24 @@
             font-weight: 600;
         }
 
-        .change-badge.positive {
+        .change-badge-percent.positive {
             background-color: rgba(16, 185, 129, 0.2);
             color: var(--phantom-green);
             border-radius: 6px; 
             padding: 1px 3px;    
         }
+        .change-badge-amount.positive {
+            color: var(--phantom-green);
+        }
         
-        .change-badge.negative {
+        .change-badge-percent.negative {
             background-color: rgba(239, 68, 68, 0.2);
             color: var(--phantom-red);
             border-radius: 6px; 
             padding: 1px 3px;  
+        }
+        .change-badge-amount.negative {
+            color: var(--phantom-red);
         }
         
         /* Action buttons */
@@ -620,7 +626,7 @@
             font-weight: 700;
             font-size: 17px;
             cursor: pointer;
-        />
+        }
         
         .btn-save:hover {
             background: var(--phantom-purple);
@@ -686,8 +692,8 @@
                 <section class="balance-section">
                     <div class="balance-amount" id="balance-amount">$0.00</div>
                     <div class="balance-change" id="balance-change">
-                        <span class="change-badge" id="change-amount">+$0.00</span>
-                        <span class="change-badge" id="change-percent">+0.00%</span>
+                        <span class="change-badge-amount positive" id="change-amount">+$0.00</span>
+                        <span class="change-badge-percent positive" id="change-percent">+0.00%</span>
                     </div>
                 </section>
                 
@@ -767,7 +773,7 @@
                     
                     <div class="token-item">
                         <div class="token-icon">
-                            <img src="images/ethereum.png" alt="Ehereum">
+                            <img src="images/ethereum.png" alt="Ethereum">
                         </div>
                         <div class="token-info">
                             <div class="token-name">Ethereum</div>
@@ -1112,41 +1118,41 @@
             // Update UI
             function updateUI() {
                 // Format balance
-                balanceAmount.textContent = `$${state.balance.toFixed(2)}`;
+                balanceAmount.textContent = `$${state.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                 
                 // Calculate SOL balance based on SOL price
                 state.solBalance = state.balance / state.solPrice;
                 solAmount.textContent = `${state.solBalance.toFixed(4)} SOL`;
-                solValue.textContent = `$${(state.solBalance * state.solPrice).toFixed(2)}`;
+                solValue.textContent = `$${(state.solBalance * state.solPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                 
                 // Calculate change if we have a previous balance
                 if (state.previousBalance > 0) {
                     const change = state.balance - state.previousBalance;
-                    const changePercentValue = (change / state.previousBalance) * 100;
+                    const percentChange = state.previousBalance > 0 ? (change / state.previousBalance) * 100 : 0;
                     
                     // Update change indicators
-                    changeAmount.textContent = change >= 0 ? `+$${change.toFixed(2)}` : `-$${Math.abs(change).toFixed(2)}`;
-                    changePercent.textContent = changePercentValue >= 0 ? `+${changePercentValue.toFixed(2)}%` : `${changePercentValue.toFixed(2)}%`;
+                    changeAmount.textContent = change >= 0 ? `+$${change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : `-$${Math.abs(change).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    changePercent.textContent = percentChange >= 0 ? `+${percentChange.toFixed(2)}%` : `-${Math.abs(percentChange).toFixed(2)}%`;
                     
                     // Set colors based on change
                     if (change >= 0) {
-                        changeAmount.className = 'change-badge positive';
-                        changePercent.className = 'change-badge positive';
+                        changeAmount.className = 'change-badge-amount positive';
+                        changePercent.className = 'change-badge-percent positive';
                     } else {
-                        changeAmount.className = 'change-badge negative';
-                        changePercent.className = 'change-badge negative';
+                        changeAmount.className = 'change-badge-amount negative';
+                        changePercent.className = 'change-badge-percent negative';
                     }
                     
                     // Update SOL change
                     const solChangeValue = (state.solBalance * state.solPrice) - (state.previousBalance / state.solPrice * state.solPrice);
-                    solChange.textContent = solChangeValue >= 0 ? `+$${solChangeValue.toFixed(2)}` : `-$${Math.abs(solChangeValue).toFixed(2)}`;
+                    solChange.textContent = solChangeValue >= 0 ? `+$${solChangeValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : `-$${Math.abs(solChangeValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                     solChange.className = solChangeValue >= 0 ? 'value-change' : 'value-change negative';
                 } else {
                     // Reset to default state
                     changeAmount.textContent = '+$0.00';
                     changePercent.textContent = '+0.00%';
-                    changeAmount.className = 'change-badge positive';
-                    changePercent.className = 'change-badge positive';
+                    changeAmount.className = 'change-badge-amount positive';
+                    changePercent.className = 'change-badge-percent positive';
                     solChange.textContent = '+$0.00';
                     solChange.className = 'value-change';
                 }
