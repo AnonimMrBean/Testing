@@ -35,7 +35,7 @@
             --phantom-card-hover: #333333;
             --phantom-text: #ffffff;
             --phantom-text-secondary: #888888;
-            --phantom-text-muted: #666666;
+            --phantom-text-muted: #acacac;
             --phantom-green: #10b981;
             --phantom-red: #ef4444;
             --phantom-border: rgba(255, 255, 255, 0.08);
@@ -137,10 +137,10 @@
         }
         
         .balance-amount {
-            font-size: 46px;
-            font-weight: 550;
-            margin-bottom: 6px;
-            letter-spacing: 4px;
+            font-size: 50px;
+            font-weight: 600;
+            margin-bottom: -8px;
+            letter-spacing: 0px;
             color: var(--phantom-text);
         }
         
@@ -183,19 +183,19 @@
         .action-buttons {
             display: flex;
             justify-content: space-between;
-            padding: 0 12px 30px;
+            padding: 0 4px 0px;
             gap: 8px;
         }
         
         .action-button {
             background: var(--phantom-card);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 18px 0;
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 1px;
             cursor: pointer;
             transition: background-color 0.2s;
             min-width: 0;
@@ -204,7 +204,26 @@
         .action-button:hover {
             background: var(--phantom-card-hover);
         }
-        
+
+        .action-icon.send-icon {
+        width: 28px;
+        height: 28px;
+        -webkit-mask: url('images/send.svg') no-repeat center;
+        -webkit-mask-size: contain;
+        mask: url('images/send.svg') no-repeat center;
+        mask-size: contain;
+        background-color: var(--phantom-purple-light); /* колір іконки */
+        transition: background-color 0.2s;
+        }
+
+        .action-button:hover .send-icon {
+        background-color: var(--phantom-purple-dark);
+        }
+
+        .action-button:hover .action-text {
+        color: var(--phantom-text-secondary);
+        }
+
         .action-icon {
             width: 28px;
             height: 28px;
@@ -222,7 +241,7 @@
         }
         
         .action-text {
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--phantom-text-secondary);
         }
@@ -231,14 +250,14 @@
         .tabs {
             display: flex;
             padding: 0 12px;
-            margin-bottom: 15px;
+            margin-bottom: -20px;
         }
         
         .tab {
-            padding: 14px 0;
+            padding: 20px 0;
             margin-right: 10px;
             font-weight: 600;
-            font-size: 17px;
+            font-size: 20px;
             position: relative;
             color: var(--phantom-text-muted);
             cursor: pointer;
@@ -254,14 +273,23 @@
         }
         
         .more-options {
-            font-size: 20px;
+            width: 27px;
+            height: 27px;
             color: var(--phantom-text-muted);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .more-options svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
         }
         
         /* Token list */
         .token-list {
-            padding: 0 8px;
+            padding: 0 4px;
         }
         
         .token-item {
@@ -343,10 +371,11 @@
         }
         
         .value-amount {
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 370;
+            font-size: 17px;
             margin-bottom: 2px;
             color: var(--phantom-text);
+            letter-spacing: 1px;
         }
         
         .value-change {
@@ -356,7 +385,7 @@
         }
 
         .value-default-fake {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--phantom-text-secondary);
             font-weight: 500;
         }
@@ -395,7 +424,7 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 28px;
+            width: 50px;
             height: 2px;
             background: var(--phantom-purple);
             border-radius: 2px;
@@ -619,7 +648,17 @@
                 <div class="account-name">acc</div>
             </div>
             <div class="header-icons">
-                <div class="header-icon"><i class="fas fa-expand"></i></div>
+                <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                    class="lucide lucide-scan-icon lucide-scan">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+                </svg>
+                </div>
                 <div class="header-icon" id="settings-nav">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
                 </div>
@@ -656,10 +695,8 @@
                     <div class="action-text">Receive</div>
                 </div>
                 <div class="action-button">
-                    <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
-                    </div>
-                    <div class="action-text">Send</div>
+                <div class="action-icon send-icon"></div>
+                <div class="action-text">Send</div>
                 </div>
                 <div class="action-button">
                     <div class="action-icon">
@@ -679,7 +716,16 @@
                 <div class="tab active">Tokens</div>
                 <div class="tab">Collectibles</div>
                 <div class="tab-options">
-                    <div class="more-options">⋯</div>
+                    <div class="more-options">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                            fill="none" stroke="currentColor" stroke-width="2" 
+                            stroke-linecap="round" stroke-linejoin="round" 
+                            class="lucide lucide-ellipsis-icon lucide-ellipsis">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="19" cy="12" r="1"/>
+                            <circle cx="5" cy="12" r="1"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
             
@@ -1079,15 +1125,20 @@
             
             function updateUI() {
                 // Update balance
-                balanceAmount.textContent = `$${state.balance.toFixed(2)}`;
-                
+                balanceAmount.textContent = `$${state.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
                 // Update balance change
                 const change = state.balance - state.previousBalance;
                 const percentChange = state.previousBalance > 0 ? (change / state.previousBalance) * 100 : 0;
-                
-                changeAmount.textContent = change >= 0 ? `+$${change.toFixed(2)}` : `-$${Math.abs(change).toFixed(2)}`;
-                changePercent.textContent = percentChange >= 0 ? `+${percentChange.toFixed(2)}%` : `-${Math.abs(percentChange).toFixed(2)}%`;
-                
+
+                changeAmount.textContent = change >= 0
+                    ? `+$${change.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                    : `-$${Math.abs(change).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+                changePercent.textContent = percentChange >= 0
+                    ? `+${percentChange.toFixed(2)}%`
+                    : `-${Math.abs(percentChange).toFixed(2)}%`;
+
                 // Update change badges color
                 if (change >= 0) {
                     changeAmount.className = 'change-badge-amount positive';
@@ -1096,17 +1147,17 @@
                     changeAmount.className = 'change-badge-amount negative';
                     changePercent.className = 'change-badge-percent negative';
                 }
-                
+
                 // Update SOL balance based on total balance
                 state.solBalance = state.balance / state.solPrice;
-                
+
                 // Update SOL display
                 solAmount.textContent = `${state.solBalance.toFixed(4)} SOL`;
-                solValue.textContent = `$${(state.solBalance * state.solPrice).toFixed(2)}`;
-                
+                solValue.textContent = `$${(state.solBalance * state.solPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
                 // Calculate SOL change (simulated)
                 const solChangeValue = state.solBalance * state.solPrice * 0.02; // 2% change for demo
-                solChange.textContent = `+$${solChangeValue.toFixed(2)}`;
+                solChange.textContent = `+$${solChangeValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
             }
             
             // Initialize the app
