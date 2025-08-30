@@ -983,12 +983,11 @@
                         // Apply pull effect to content
                         contentWrapper.style.transform = `translateY(${limitedPullDistance}px)`;
                         
-                        // Indicator appears instantly at fixed center position
+                        // Indicator stays at fixed position, only opacity changes
                         const pullProgress = Math.min(1, limitedPullDistance / maxPullDistance);
                         refreshControl.style.transition = 'none';
                         refreshControl.style.opacity = pullProgress;
-                        // Fixed position at center of pull area
-                        refreshControl.style.transform = `translateY(${limitedPullDistance / 2 + 25}px)`;
+                        refreshControl.style.transform = `translateY(50px)`;  // Fixed position
                         
                         // Rotate icon based on pull progress
                         const rotation = pullProgress * 360;
