@@ -917,8 +917,9 @@
             let currentY = 0;
             let isRefreshing = false;
             let pullDistance = 0;
-            let maxPullDistance = 80;
-            let isTouch = false; 
+            let maxPullDistance = 100;
+            let isTouch = false;
+
             
             // Initialize
             function init() {
@@ -982,10 +983,12 @@
                         // Apply pull effect to content
                         contentWrapper.style.transform = `translateY(${limitedPullDistance}px)`;
                         
-                        // Position refresh control in the center but offset lower to avoid header
+                        // Indicator appears instantly at fixed center position
                         const pullProgress = Math.min(1, limitedPullDistance / maxPullDistance);
+                        refreshControl.style.transition = 'none';
                         refreshControl.style.opacity = pullProgress;
-                        refreshControl.style.transform = `translateY(${(limitedPullDistance / 2) + 40}px)`;
+                        // Fixed position at center of pull area
+                        refreshControl.style.transform = `translateY(${limitedPullDistance / 2 + 25}px)`;
                         
                         // Rotate icon based on pull progress
                         const rotation = pullProgress * 360;
@@ -1032,10 +1035,12 @@
                         // Apply pull effect to content
                         contentWrapper.style.transform = `translateY(${limitedPullDistance}px)`;
                         
-                        // Position refresh control in the center but offset lower to avoid header
+                        // Indicator appears instantly at fixed center position
                         const pullProgress = Math.min(1, limitedPullDistance / maxPullDistance);
+                        refreshControl.style.transition = 'none';
                         refreshControl.style.opacity = pullProgress;
-                        refreshControl.style.transform = `translateY(${(limitedPullDistance / 2) + 40}px)`;
+                        // Fixed position at center of pull area
+                        refreshControl.style.transform = `translateY(${limitedPullDistance / 2 + 25}px)`;
                         
                         // Rotate icon based on pull progress
                         const rotation = pullProgress * 360;
@@ -1066,9 +1071,9 @@
                 isRefreshing = true;
                 document.body.classList.add('refreshing');
                 
-                // Smoothly move refresh control to final position (lower on screen)
+                // Smoothly move refresh control to final position (higher on screen)
                 refreshControl.style.transition = 'transform 0.4s ease-out';
-                refreshControl.style.transform = `translateY(65px)`;
+                refreshControl.style.transform = `translateY(45px)`;
                 refreshControl.style.opacity = '1';
                 
                 // Animate content back to slightly below original position
@@ -1091,21 +1096,22 @@
                 contentWrapper.style.transition = 'transform 0.5s ease';
                 contentWrapper.style.transform = 'translateY(0)';
                 
-                // Animate refresh control to fade out while spinning in place
-                refreshControl.style.transition = 'opacity 0.8s ease';
+                // Fast exit animation - indicator moves away quickly while fading
+                refreshControl.style.transition = 'transform 0.3s ease-in, opacity 0.6s ease-out';
+                refreshControl.style.transform = 'translateY(-40px) scale(0.7)';
                 refreshControl.style.opacity = '0';
                 
-                // Keep refresh control position during fade out
+                // Reset position and rotation after fade out
                 setTimeout(() => {
-                    refreshControl.style.transform = 'translateY(0)';
+                    refreshControl.style.transition = 'none';
+                    refreshControl.style.transform = 'translateY(0) scale(1)';
                     refreshIndicator.style.transform = 'rotate(0deg)';
-                }, 800);
+                }, 600);
                 
-                // Remove transition after animation completes
+                // Remove content transition after animation completes
                 setTimeout(() => {
                     contentWrapper.style.transition = '';
-                    refreshControl.style.transition = '';
-                }, 800);
+                }, 500);
             }
 
             // Refresh data
