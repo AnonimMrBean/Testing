@@ -487,20 +487,20 @@
             z-index: 5;
             pointer-events: none;
             opacity: 0;
-            transform: translateY(-60px);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translateY(0);
+            transition: none;
         }
         
         .refresh-indicator {
             width: 36px;
             height: 36px;
             border-radius: 18px;
-            background: var(--phantom-card);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--phantom-border);
+            box-shadow: none;
+            border: none;
         }
         
         .refresh-icon {
@@ -917,8 +917,8 @@
             let currentY = 0;
             let isRefreshing = false;
             let pullDistance = 0;
-            let maxPullDistance = 120;
-            let isTouch = false;
+            let maxPullDistance = 80;
+            let isTouch = false;    
             
             // Initialize
             function init() {
@@ -958,7 +958,7 @@
                     }
                 }, { passive: false });
             }
-            
+
             // Touch handlers
             function handleTouchStart(e) {
                 if (mainContent.scrollTop === 0) {
@@ -967,7 +967,7 @@
                     currentY = startY;
                 }
             }
-            
+
             function handleTouchMove(e) {
                 if (mainContent.scrollTop === 0 && !isRefreshing) {
                     currentY = e.touches[0].clientY;
@@ -982,10 +982,10 @@
                         // Apply pull effect to content
                         contentWrapper.style.transform = `translateY(${limitedPullDistance}px)`;
                         
-                        // Show refresh control with opacity based on pull progress
+                        // Position refresh control at pull distance
                         const pullProgress = Math.min(1, limitedPullDistance / maxPullDistance);
                         refreshControl.style.opacity = pullProgress;
-                        refreshControl.style.transform = `translateY(${limitedPullDistance}px)`;
+                        refreshControl.style.transform = `translateY(${limitedPullDistance - 30}px)`;
                         
                         // Rotate icon based on pull progress
                         const rotation = pullProgress * 360;
@@ -993,7 +993,7 @@
                     }
                 }
             }
-            
+
             function handleTouchEnd() {
                 if (isTouch && pullDistance > 0) {
                     isTouch = false;
@@ -1009,7 +1009,7 @@
                     pullDistance = 0;
                 }
             }
-            
+
             // Mouse handlers for desktop
             function handleMouseDown(e) {
                 if (mainContent.scrollTop === 0) {
@@ -1019,7 +1019,7 @@
                     mainContent.style.cursor = 'grabbing';
                 }
             }
-            
+
             function handleMouseMove(e) {
                 if (mainContent.scrollTop === 0 && startY > 0 && !isRefreshing) {
                     currentY = e.clientY;
@@ -1032,10 +1032,10 @@
                         // Apply pull effect to content
                         contentWrapper.style.transform = `translateY(${limitedPullDistance}px)`;
                         
-                        // Show refresh control with opacity based on pull progress
+                        // Position refresh control at pull distance
                         const pullProgress = Math.min(1, limitedPullDistance / maxPullDistance);
                         refreshControl.style.opacity = pullProgress;
-                        refreshControl.style.transform = `translateY(${limitedPullDistance}px)`;
+                        refreshControl.style.transform = `translateY(${limitedPullDistance - 30}px)`;
                         
                         // Rotate icon based on pull progress
                         const rotation = pullProgress * 360;
@@ -1043,7 +1043,7 @@
                     }
                 }
             }
-            
+
             function handleMouseUp() {
                 if (!isTouch && pullDistance > 0) {
                     if (pullDistance >= maxPullDistance && !isRefreshing) {
@@ -1060,11 +1060,19 @@
                     mainContent.style.cursor = 'grab';
                 }
             }
-            
+
             // Start refresh
             function startRefresh() {
                 isRefreshing = true;
                 document.body.classList.add('refreshing');
+                
+                // Keep refresh control at a fixed position during refresh
+                refreshControl.style.transform = `translateY(30px)`;
+                refreshControl.style.opacity = '1';
+                
+                // Animate content back slightly below original position
+                contentWrapper.style.transition = 'transform 0.3s ease';
+                contentWrapper.style.transform = 'translateY(30px)';
                 
                 // Simulate refresh delay
                 setTimeout(() => {
@@ -1072,31 +1080,33 @@
                     resetRefresh();
                 }, 1500);
             }
-            
+
             // Reset refresh UI
             function resetRefresh() {
                 isRefreshing = false;
                 document.body.classList.remove('refreshing');
                 
                 // Animate content back to position
-                contentWrapper.style.transition = 'transform 0.3s ease';
+                contentWrapper.style.transition = 'transform 0.5s ease';
                 contentWrapper.style.transform = 'translateY(0)';
                 
-                // Hide refresh control
-                refreshControl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                // Animate refresh control to fade out while spinning in place
+                refreshControl.style.transition = 'opacity 0.8s ease';
                 refreshControl.style.opacity = '0';
-                refreshControl.style.transform = 'translateY(-60px)';
                 
-                // Reset rotation
-                refreshIndicator.style.transform = 'rotate(0deg)';
+                // Keep refresh control position during fade out
+                setTimeout(() => {
+                    refreshControl.style.transform = 'translateY(0)';
+                    refreshIndicator.style.transform = 'rotate(0deg)';
+                }, 800);
                 
                 // Remove transition after animation completes
                 setTimeout(() => {
                     contentWrapper.style.transition = '';
                     refreshControl.style.transition = '';
-                }, 300);
+                }, 800);
             }
-            
+
             // Refresh data
             function refreshData() {
                 state.refreshCount++;
